@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop UltraBook - Tu Chiverío</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #0a0e2a;
+            --color-secondary: #5a3c9e;
+            --color-accent: #00d4ff;
+            --color-light: #ffffff;
+            --color-dark: #2c2f4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-primary);
+            color: var(--color-light);
+            line-height: 1.6;
+        }
+
+        /* --- Encabezado (Header) --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(10, 14, 42, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+        }
+
+        /* Menú de Navegación */
+        .header .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .header .nav-menu a {
+            color: var(--color-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .header .nav-menu a:hover {
+            color: var(--color-accent);
+        }
+
+        .header .cta-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .header .cta-button:hover {
+            background-color: var(--color-light);
+        }
+
+        /* Estilos del botón del menú móvil */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-light);
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- Contenido Principal --- */
+        main {
+            padding-top: 80px; /* Para compensar el header fijo */
+            min-height: calc(100vh - 150px); /* Altura menos header y footer */
+        }
+
+        /* --- Estilos de la página de producto --- */
+        .product-detail {
+            padding: 4rem 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background-color: var(--color-dark);
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            background-color: var(--color-primary);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover {
+            border-color: var(--color-accent);
+            transform: scale(1.05);
+        }
+
+        .thumbnail.active {
+            border-color: var(--color-accent);
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-light);
+        }
+
+        .product-price {
+            font-size: 2rem;
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-description {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .product-features {
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            margin-bottom: 0.8rem;
+            list-style-type: none;
+            position: relative;
+            padding-left: 1.8rem;
+            color: #ccc;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            color: var(--color-accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            padding: 1rem 2rem;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: auto;
+            max-width: 300px;
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .back-button:hover {
+            text-decoration: underline;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background-color: #128C7E;
+        }
+        
+        /* --- Pie de Página (Footer) --- */
+        .footer {
+            background-color: var(--color-dark);
+            padding: 2rem 5%;
+            text-align: center;
+        }
+        
+        .footer .contact-info p {
+            margin: 0.5rem 0;
+            color: #aaa;
+        }
+        
+        .footer .social-icons a {
+            color: var(--color-light);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer .social-icons a:hover {
+            color: var(--color-accent);
+        }
+
+        /* --- Diseño para Móviles --- */
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 1rem 5%;
+                flex-wrap: wrap;
+            }
+            
+            .header .cta-button {
+                display: none;
+            }
+
+            .header .nav-menu {
+                display: none;
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                width: 100%;
+                background-color: var(--color-dark);
+                padding: 1rem 0;
+                margin-top: 1rem;
+            }
+
+            .header .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+                padding: 2rem 5%;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .product-price {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo">Tu Chiverío</div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-menu">
+            <a href="web.html#hero">Inicio</a>
+            <a href="web.html#products">Productos</a>
+            <a href="web.html#services">Servicios</a>
+            <a href="web.html#footer">Contacto</a>
+        </nav>
+        <a href="mailto:ventas@tuchiverio.com" class="cta-button">Contáctanos</a>
+    </header>
+
+    <main>
+        <div class="product-detail">
+            <div class="product-gallery">
+                <a href="web.html#products" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Volver a productos
+                </a>
+                <img src="/img/Laptop.png" alt="Laptop UltraBook" class="main-image" id="mainImage">
+                <div class="thumbnail-container">
+                    <img src="/img/Laptop.png" alt="Miniatura 1" class="thumbnail active" onclick="changeImage(this)">
+                    <img src="/img/Laptop_angle.png" alt="Miniatura 2" class="thumbnail" onclick="changeImage(this)">
+                    <img src="/img/Laptop_back.png" alt="Miniatura 3" class="thumbnail" onclick="changeImage(this)">
+                    <img src="/img/Laptop_side.png" alt="Miniatura 4" class="thumbnail" onclick="changeImage(this)">
+                </div>
+            </div>
+            
+            <div class="product-info">
+                <h1 class="product-title">Laptop UltraBook</h1>
+                <p class="product-price">$1,200 USD</p>
+                
+                <p class="product-description">
+                    La Laptop UltraBook es ideal para trabajo y estudio con su diseño ligero y potente. 
+                    Con procesador de última generación y pantalla Full HD, ofrece un rendimiento excepcional 
+                    en un paquete ultradelgado.
+                </p>
+                
+                <ul class="product-features">
+                    <li>Procesador Intel Core i7 de 11ª generación</li>
+                    <li>16GB RAM DDR4</li>
+                    <li>512GB SSD NVMe</li>
+                    <li>Pantalla Full HD 15.6" IPS</li>
+                    <li>Batería de hasta 10 horas de duración</li>
+                    <li>Peso: 1.5 kg</li>
+                    <li>Garantía de 1 año</li>
+                </ul>
+                
+                <!-- <button class="add-to-cart">Añadir al carrito</button> -->
+            </div>
+        </div>
+    </main>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/1234567890?text=Hola,%20tengo%20una%20duda%20sobre%20la%20Laptop%20UltraBook" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer class="footer">
+        <div class="contact-info">
+            <p><strong>Tu Chiverío</strong></p>
+            <p>📧 ventas@tuchiverio.com</p>
+            <p>📞 30554375</p>
+        </div>
+        <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">© 2023 Tu Chiverío. Todos los derechos reservados.</p>
+    </footer>
+    
+    <script>
+
+        // Menú móvil
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            
+            // Animación del botón hamburguesa a X
+            const bars = document.querySelectorAll('.bar');
+            if(navMenu.classList.contains('active')) {
+                bars[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                bars[0].style.transform = 'rotate(0) translate(0, 0)';
+                bars[1].style.opacity = '1';
+                bars[2].style.transform = 'rotate(0) translate(0, 0)';
+            }
+        });
+
+        // Cambiar imagen principal al hacer clic en miniatura
+        function changeImage(element) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = element.src;
+            
+            // Remover clase active de todas las miniaturas
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            
+            // Agregar clase active a la miniatura clickeada
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>

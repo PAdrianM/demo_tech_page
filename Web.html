@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Chiverío - Laptops, PC y Servicios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-primary: #0a0e2a;
+            --color-secondary: #5a3c9e;
+            --color-accent: #00d4ff;
+            --color-light: #ffffff;
+            --color-dark: #2c2f4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-primary);
+            color: var(--color-light);
+            line-height: 1.6;
+        }
+
+        /* --- Encabezado (Header) --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(10, 14, 42, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+        }
+
+        /* Menú de Navegación */
+        .header .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .header .nav-menu a {
+            color: var(--color-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .header .nav-menu a:hover {
+            color: var(--color-accent);
+        }
+
+        .header .cta-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .header .cta-button:hover {
+            background-color: var(--color-light);
+        }
+
+        /* Estilos del botón del menú móvil */
+        .menu-toggle {
+            display: none; /* Oculto en escritorio */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-light);
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* --- Sección Principal (Hero) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            /* background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); */
+            background-image: url("../img/image.png");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            color: var(--color-accent);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero .hero-button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            background-color: var(--color-accent);
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .hero .hero-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Carrusel de Productos --- */
+        .products {
+            padding: 4rem 5%;
+            text-align: center;
+            background-color: var(--color-dark);
+        }
+        
+        .products h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--color-light);
+        }
+        
+        .carousel-container {
+            display: flex;
+            overflow-x: scroll;
+            gap: 2rem;
+            padding: 1rem 0;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .product-card {
+            min-width: 300px;
+            background-color: #40445d;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .product-card-content {
+            padding: 1.5rem;
+        }
+        
+        .product-card-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-card-content p {
+            font-size: 1rem;
+            color: #ccc;
+        }
+        
+        .product-card-content .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-top: 1rem;
+        }
+        
+        /* --- Sección de Servicios --- */
+        .services {
+            padding: 4rem 5%;
+            text-align: center;
+        }
+        
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: var(--color-dark);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: scale(1.05);
+        }
+
+        .service-card .icon {
+            font-size: 3rem;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-card p {
+            color: #ccc;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background-color: #128C7E;
+        }
+        
+        /* --- Pie de Página (Footer) --- */
+        .footer {
+            background-color: var(--color-dark);
+            padding: 2rem 5%;
+            text-align: center;
+        }
+        
+        .footer .contact-info p {
+            margin: 0.5rem 0;
+            color: #aaa;
+        }
+        
+        .footer .social-icons a {
+            color: var(--color-light);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer .social-icons a:hover {
+            color: var(--color-accent);
+        }
+
+        /* --- Diseño para Móviles --- */
+        @media screen and (max-width: 768px) {
+            .header {
+                padding: 1rem 5%;
+                flex-wrap: wrap; /* Permite que los elementos se muevan a una nueva línea si es necesario */
+            }
+            
+            .header .cta-button {
+                display: none; /* Oculta el botón de contacto en móvil si lo deseas */
+            }
+
+            .header .nav-menu {
+                display: none; /* OCULTA EL MENÚ POR DEFECTO */
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                width: 100%;
+                background-color: var(--color-dark);
+                padding: 1rem 0;
+                margin-top: 1rem;
+            }
+
+            .header .nav-menu.active {
+                display: flex; /* MUESTRA EL MENÚ CUANDO LA CLASE 'active' ESTÁ PRESENTE */
+            }
+            
+            .menu-toggle {
+                display: block; /* Muestra el botón del menú en móvil */
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .products h2, .services h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="logo">Tu Chiverío</div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav class="nav-menu">
+            <a href="#hero">Inicio</a>
+            <a href="#products">Productos</a>
+            <a href="#services">Servicios</a>
+            <a href="#footer">Contacto</a>
+        </nav>
+        <a href="mailto:ventas@tuchiverio.com" class="cta-button">Contáctanos</a>
+    </header>
+
+    <section id="hero" class="hero">
+        <h1>Laptops, PC, <span>Servicio Técnico,</span> Software</h1>
+        <p>"Tenemos lo que necesitas"</p>
+        <a href="#products" class="hero-button">Explora nuestros productos</a>
+    </section>
+
+    <section id="products" class="products">
+        <h2>Nuestros Productos Destacados</h2>
+        <div class="carousel-container">
+            <div class="product-card">
+                <img src="/img/Laptop.png" alt="Laptop 1">
+                <div class="product-card-content">
+                    <h3>Laptop UltraBook</h3>
+                    <p>Ideal para trabajo y estudio. Diseño ligero y potente.</p>
+                    <p class="price">$1,200 USD</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/img/PC_Gamer.png" alt="PC Gaming">
+                <div class="product-card-content">
+                    <h3>PC Gamer Pro</h3>
+                    <p>Rendimiento extremo para los juegos más exigentes.</p>
+                    <p class="price">$2,500 USD</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/img/Laptop_Profesional.png" alt="Laptop 2">
+                <div class="product-card-content">
+                    <h3>Laptop Profesional</h3>
+                    <p>Potencia y fiabilidad para profesionales creativos.</p>
+                    <p class="price">$1,800 USD</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="/img/Pc_oficina.png" alt="PC Oficina">
+                <div class="product-card-content">
+                    <h3>PC de Oficina</h3>
+                    <p>Eficiencia y durabilidad para las tareas diarias.</p>
+                    <p class="price">$850 USD</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">💻</div>
+                <h3>Venta de Equipos</h3>
+                <p>Ofrecemos laptops y PCs de las mejores marcas, adaptadas a tus necesidades.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🔧</div>
+                <h3>Servicio Técnico</h3>
+                <p>Mantenimiento preventivo, reparación de hardware y optimización de software.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🔑</div>
+                <h3>Licencias de Software</h3>
+                <p>Venta de licencias originales de Windows, Office y otros programas esenciales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/1234567890?text=Hola,%20tengo%20una%20duda%20sobre%20sus%20productos" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer id="footer" class="footer">
+        <div class="contact-info">
+            <p><strong>Tu Chiverío</strong></p>
+            <p>📧 ventas@tuchiverio.com</p>
+            <p>📞 30554375</p>
+        </div>
+        <div class="social-icons">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Instagram</a>
+        </div>
+    </footer>
+    
+    <script>
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.cursor = 'pointer'; 
+            card.addEventListener('click', () => {
+                window.location.href = 'web2.html';
+            });
+        });
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>
